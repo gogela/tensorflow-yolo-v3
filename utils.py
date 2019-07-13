@@ -185,17 +185,18 @@ def non_max_suppression(predictions_with_boxes, confidence_threshold, iou_thresh
 
     result = {}
     for i, image_pred in enumerate(predictions):
-        shape = image_pred.shape
-        non_zero_idxs = np.nonzero(image_pred)
-        image_pred = image_pred[non_zero_idxs]
-     
-        image_pred = image_pred.reshape(-1, shape[-1])
         #adding the fix from here: https://github.com/mystic123/tensorflow-yolo-v3/issues/70
         temp = image_pred
         sum_t = np.sum(temp, axis=1)
         non_zero_idx = sum_t != 0
         image_pred = image_pred[non_zero_idx, :]
         #end of fix
+        shape = image_pred.shape
+        non_zero_idxs = np.nonzero(image_pred)
+        image_pred = image_pred[non_zero_idxs]
+     
+        image_pred = image_pred.reshape(-1, shape[-1])
+
         bbox_attrs = image_pred[:, :5]
         classes = image_pred[:, 5:]
         classes = np.argmax(classes, axis=-1)
