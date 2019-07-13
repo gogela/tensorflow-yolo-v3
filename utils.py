@@ -238,6 +238,7 @@ def draw_boxes(boxes, img, cls_names, detection_size, is_letter_box_image):
     draw = ImageDraw.Draw(img)
 
     for cls, bboxs in boxes.items():
+        print('classid:',cls)
         color = tuple(np.random.randint(0, 256, 3))
         for box, score in bboxs:
             box = convert_to_original_size(box, np.array(detection_size),
