@@ -191,10 +191,10 @@ def non_max_suppression(predictions_with_boxes, confidence_threshold, iou_thresh
         non_zero_idx = sum_t != 0
         image_pred = image_pred[non_zero_idx, :]
         #end of fix
-        shape = image_pred.shape
+        
         non_zero_idxs = np.nonzero(image_pred)
         image_pred = image_pred[non_zero_idxs]
-     
+        shape = image_pred.shape
         image_pred = image_pred.reshape(-1, shape[-1])
 
         bbox_attrs = image_pred[:, :5]
